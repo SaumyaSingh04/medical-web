@@ -309,7 +309,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   function formatImageUrl(url) {
       if (!url) return 'assets/productimg2.png';
       if (url.startsWith('http://') || url.startsWith('https://')) return url;
-      return `http://localhost:5000${url.startsWith('/') ? '' : '/'}${url}`;
+      return `${ENV.PRODUCTS_API.replace('/api/v1', '')}${url.startsWith('/') ? '' : '/'}${url}`;
   }
 
   function renderStars(rating) {
@@ -515,7 +515,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   function formatImageUrl(url) {
       if (!url) return 'assets/productimg2.png';
       if (url.startsWith('http://') || url.startsWith('https://')) return url;
-      return `http://localhost:5000${url.startsWith('/') ? '' : '/'}${url}`;
+      return `${ENV.PRODUCTS_API.replace('/api/v1', '')}${url.startsWith('/') ? '' : '/'}${url}`;
   }
 
   function renderStars(rating) {
