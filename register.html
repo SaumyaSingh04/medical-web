@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account — Triven Ayurveda</title>
+  <link rel="stylesheet" href="Triven.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body { background: var(--cream); overflow-x: hidden; }
+
+    .register-page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* ── LEFT PANEL ── */
+    .reg-left {
+      background: var(--grad-forest);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px 56px;
+      overflow: hidden;
+    }
+    .reg-left::before {
+      content: '';
+      position: absolute;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(82,183,136,0.18) 0%, transparent 70%);
+      top: -80px; right: -100px;
+      pointer-events: none;
+    }
+    .reg-left::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+      bottom: -60px; left: -60px;
+      pointer-events: none;
+    }
+    .reg-left-inner { position: relative; z-index: 1; }
+
+    .reg-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 56px;
+      text-decoration: none;
+    }
+    .reg-logo img {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      border: 2px solid rgba(201,168,76,0.4);
+    }
+    .reg-logo-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: var(--white);
+      font-weight: 600;
+    }
+    .reg-logo-tag {
+      font-size: 0.65rem;
+      color: var(--gold-light);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      display: block;
+    }
+
+    .reg-left h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .reg-left h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+      background: none;
+      -webkit-text-fill-color: var(--gold-light);
+    }
+    .reg-left p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      max-width: 340px;
+      margin-bottom: 40px;
+    }
+
+    .reg-perks { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .reg-perks li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+    .reg-perks li .perk-icon {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold-light);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .reg-divider {
+      width: 48px; height: 2px;
+      background: var(--grad-gold);
+      border-radius: 2px;
+      margin: 40px 0 0;
+    }
+
+    /* ── RIGHT PANEL ── */
+    .reg-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 48px;
+      background: var(--cream);
+    }
+    .reg-form-wrap { width: 100%; max-width: 420px; }
+
+    .reg-form-header { margin-bottom: 32px; }
+    .reg-form-header .step-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .reg-form-header .step-tag::before {
+      content: '';
+      display: block;
+      width: 24px; height: 1px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+    .reg-form-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--forest);
+      margin-bottom: 6px;
+    }
+    .reg-form-header p { color: var(--text-muted); font-size: 0.9rem; }
+
+    .alert {
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 0.88rem;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+    .alert-error { background: #fee2e2; color: #b91c1c; border: 1px solid #f87171; }
+    .alert-success { background: #dcfce7; color: #15803d; border: 1px solid #4ade80; }
+
+    .field-row { display: flex; gap: 14px; }
+    .field-row .field { flex: 1; }
+
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--forest);
+      margin-bottom: 7px;
+      letter-spacing: 0.3px;
+    }
+    .input-wrap { position: relative; }
+    .input-wrap i {
+      position: absolute;
+      left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      pointer-events: none;
+    }
+    .input-wrap input {
+      width: 100%;
+      padding: 12px 14px 12px 38px;
+      border: 1.5px solid rgba(13,40,24,0.12);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.93rem;
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      transition: all 0.25s;
+      box-sizing: border-box;
+    }
+    .input-wrap input:focus {
+      border-color: var(--forest-light);
+      box-shadow: 0 0 0 3px rgba(45,106,79,0.08);
+    }
+    .input-wrap input::placeholder { color: #bbb; }
+
+    .reg-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--grad-forest);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 20px rgba(13,40,24,0.2);
+    }
+    .reg-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(13,40,24,0.3);
+    }
+
+    .reg-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .reg-footer a { color: var(--forest-light); font-weight: 600; text-decoration: none; }
+    .reg-footer a:hover { text-decoration: underline; }
+
+    /* ── RESPONSIVE ── */
+
+    /* Tablet landscape */
+    @media (max-width: 1024px) {
+      .reg-left { padding: 48px 40px; }
+      .reg-right { padding: 48px 36px; }
+    }
+
+    /* Tablet portrait — stack vertically */
+    @media (max-width: 860px) {
+      .register-page {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+      }
+
+      /* Left becomes a compact top banner */
+      .reg-left {
+        padding: 28px 24px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        min-height: unset;
+      }
+      .reg-left::before { width: 200px; height: 200px; top: -60px; right: -40px; }
+      .reg-left::after  { display: none; }
+      .reg-left-inner {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+      }
+      .reg-logo { margin-bottom: 0; flex-shrink: 0; }
+      .reg-left h1 {
+        font-size: 1.3rem;
+        margin-bottom: 0;
+        white-space: nowrap;
+      }
+      .reg-left p    { display: none; }
+      .reg-perks     { display: none; }
+      .reg-divider   { display: none; }
+
+      /* Right fills remaining space */
+      .reg-right {
+        padding: 40px 32px;
+        align-items: flex-start;
+      }
+      .reg-form-wrap { max-width: 100%; }
+    }
+
+    /* Mobile */
+    @media (max-width: 540px) {
+      .reg-left { padding: 20px 16px; }
+      .reg-left h1 { font-size: 1.1rem; }
+      .reg-logo img { width: 38px; height: 38px; }
+      .reg-logo-name { font-size: 0.95rem; }
+      .reg-logo-tag  { display: none; }
+
+      .reg-right { padding: 28px 16px; }
+      .reg-form-header { margin-bottom: 24px; }
+      .reg-form-header h2 { font-size: 1.6rem; }
+
+      .field-row { flex-direction: column; gap: 0; }
+
+      .input-wrap input { font-size: 1rem; padding: 13px 14px 13px 38px; }
+      .reg-btn { padding: 15px; font-size: 1rem; }
+    }
+
+    /* Very small phones */
+    @media (max-width: 360px) {
+      .reg-left { padding: 16px 12px; }
+      .reg-right { padding: 24px 12px; }
+      .reg-left h1 { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="register-page">
+
+    <!-- LEFT -->
+    <div class="reg-left">
+      <div class="reg-left-inner">
+        <a href="index.html" class="reg-logo">
+          <img src="assets/Trivenlogo.png" alt="Triven" />
+          <div>
+            <span class="reg-logo-name">Triven Ayurveda</span>
+            <span class="reg-logo-tag">Ancient · Pure · Trusted</span>
+          </div>
+        </a>
+
+        <h1>Begin Your<br /><em>Wellness Journey</em></h1>
+        <p>Join thousands who trust Triven Ayurveda for authentic, lab-tested herbal remedies rooted in ancient wisdom.</p>
+
+        <ul class="reg-perks">
+          <li>
+            <span class="perk-icon"><i class="fas fa-leaf"></i></span>
+            Access to 50+ premium Ayurvedic products
+          </li>
+          <li>
+            <span class="perk-icon"><i class="fas fa-truck"></i></span>
+            Free shipping on orders above ₹999
+          </li>
+          <li>
+            <span class="perk-icon"><i class="fas fa-headset"></i></span>
+            Free consultation with Ayurvedic experts
+          </li>
+          <li>
+            <span class="perk-icon"><i class="fas fa-tag"></i></span>
+            Exclusive member discounts & early access
+          </li>
+        </ul>
+
+        <div class="reg-divider"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="reg-right">
+      <div class="reg-form-wrap">
+        <div class="reg-form-header">
+          <div class="step-tag">Get Started</div>
+          <h2>Create Account</h2>
+          <p>Fill in your details to join Triven Ayurveda.</p>
+        </div>
+
+        <div id="registerAlert" class="alert"></div>
+
+        <form id="registerForm">
+          <div class="field-row">
+            <div class="field">
+              <label for="firstName">First Name</label>
+              <div class="input-wrap">
+                <i class="far fa-user"></i>
+                <input type="text" id="firstName" required placeholder="John" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="lastName">Last Name</label>
+              <div class="input-wrap">
+                <i class="far fa-user"></i>
+                <input type="text" id="lastName" required placeholder="Doe" />
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone Number</label>
+            <div class="input-wrap">
+              <i class="fas fa-phone-alt"></i>
+              <input type="tel" id="phone" required placeholder="10-digit mobile number" pattern="[6-9][0-9]{9}" title="Valid Indian Phone Number" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="email">Email Address</label>
+            <div class="input-wrap">
+              <i class="far fa-envelope"></i>
+              <input type="email" id="email" required placeholder="john@example.com" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="input-wrap">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="password" required placeholder="Min 8 chars, uppercase & number" />
+            </div>
+          </div>
+
+          <button type="submit" class="reg-btn" id="registerBtn">
+            <i class="fas fa-user-plus"></i> Create Account
+          </button>
+        </form>
+
+        <div class="reg-footer">
+          Already have an account? <a href="login.html">Sign In</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>
