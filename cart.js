@@ -354,7 +354,7 @@ function openRazorpayCheckout(rzpData, order, token) {
       key: rzpData.razorpayKeyId || 'rzp_test_SsJNs2keLQvXko',
       amount: rzpData.amount,
       currency: rzpData.currency || 'INR',
-      name: 'Triven Ayurveda',
+      name: 'AyuCare Medical',
       description: `Order #${order.orderNumber}`,
       image: 'https://triven-ayurveda.vercel.app/Frontend/assets/Trivenlogo.png',
       order_id: rzpData.razorpayOrderId,
@@ -430,7 +430,7 @@ function openCodConfirmationCheckout(order, token) {
       key: 'rzp_test_SsJNs2keLQvXko',
       amount: 10000, // ₹100 in paise
       currency: 'INR',
-      name: 'Triven Ayurveda',
+      name: 'AyuCare Medical',
       description: `COD Confirmation — Order #${order.orderNumber}`,
       image: 'https://triven-ayurveda.vercel.app/Frontend/assets/Trivenlogo.png',
       prefill: { name: userName, email: user.email || '', contact: user.phone || '' },
@@ -1132,7 +1132,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         itemDiv.innerHTML = `
                             <div class="order-card-topbar"></div>
                             <div class="order-receipt-header">
-                                <span class="order-receipt-brand">Triven Ayurveda</span>
+                                <span class="order-receipt-brand">AyuCare Medical</span>
                                 <span class="order-receipt-type">Order Receipt</span>
                             </div>
                             <div class="order-card-inner">
